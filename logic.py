@@ -1,5 +1,8 @@
 import random
 
+#DEFINE FUNCTIONS/METHODS - could split these out into seperate file
+
+#function to validate users yes/no choices
 def check_y_n(choice):
     while True:
         if choice == "yes" or choice ==  "y" :
@@ -11,6 +14,7 @@ def check_y_n(choice):
             choice = input().lower().strip()
     return choice
 
+#function to check if user is happy with output or whether to regenerate options
 def happy_with_choice(picked):
     print("Are you happy with these choices? (yes or no)")
     happy = input()
@@ -22,35 +26,7 @@ def happy_with_choice(picked):
         happy = input()
         happy = check_y_n(happy)
 
-
-print("How many decisions do you need to make?")
-num_lists = input()
-my_lists = {}
-
-for i in range(int(num_lists)):
-    print("Please name the decision category "+str(i+1)+":")
-    cat_key = input()
-    
-    print("Please add an option for "+cat_key+":")
-    cat_option = input()
-    
-    options_list = []
-    options_list.append(cat_option)
-   
-    print("Do you want to add another option for "+cat_key+": (yes or no)")
-    more_options = input().lower().strip()
-    more_options = check_y_n(more_options)
-    
-    while more_options == "yes" or more_options =="Yes":
-        print("Please add an option for "+cat_key+":")
-        cat_option = input()
-        options_list.append(cat_option)
-        print("Do you want to add another option for "+cat_key+": (yes or no)")
-        more_options = input().lower().strip()
-        more_options = check_y_n(more_options)
-
-    my_lists[cat_key] = options_list
-
+#create function / method to randomly select a value for each key from the dictionary for chosen categories
 def make_choice(all):
     if all == "yes":
         for category, options in my_lists.items():
@@ -63,10 +39,48 @@ def make_choice(all):
                     choice = random.randint(0,len(options)-1)
                     print(category +" : "+options[choice])
 
+#MAIN BODY OF CODE
+
+# give user facility to input how many decisions they want help with and save as integer
+print("How many decisions do you need to make?")
+num_lists = input()
+my_lists = {}
+
+#give user a way to input names of categories for the number of decisions they want help with
+#add categories to my_lists
+for i in range(int(num_lists)):
+    print("Please name the decision category "+str(i+1)+":")
+    cat_key = input()
+    
+    print("Please add an option for "+cat_key+":")
+    cat_option = input()
+    
+    #create list and add cat_option to the list
+    options_list = []
+    options_list.append(cat_option)
+   
+    print("Do you want to add another option for "+cat_key+": (yes or no)")
+    more_options = input().lower().strip()
+    more_options = check_y_n(more_options)
+    
+    #check if user wants to add any more options and allow input if true
+    while more_options == "yes" or more_options =="Yes":
+        print("Please add an option for "+cat_key+":")
+        cat_option = input()
+        options_list.append(cat_option)
+        print("Do you want to add another option for "+cat_key+": (yes or no)")
+        more_options = input().lower().strip()
+        more_options = check_y_n(more_options)
+
+    #write key:value pairs into the my_lists dictionary
+    my_lists[cat_key] = options_list
+
+#ask if user wants to generate for all or a subset
 print("Would you like to generate options for all categories? (yes/no)")
 all=input().lower().strip()
 all = check_y_n(all)
 
+#generate options for subset of defined categories
 if all == "no":
     pick_cat = []
     print("Please choose a category from the below to generate a choice: \n" + str(my_lists.keys()))
@@ -93,8 +107,9 @@ if all == "no":
     happy_with_choice(pick_cat)
     
     
-    #check if the length of the picked list is less than or equal to the number of unique keys and stop them if they are saying yes to too many
+    #need tocheck if the length of the picked list is less than or equal to the number of unique keys and stop them if they are saying yes to too many
 
+#generate options for all categories
 else:
     print("Here are the choices we have generated for you:")
     make_choice(all)
