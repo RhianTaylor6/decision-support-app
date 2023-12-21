@@ -16,19 +16,19 @@ def check_y_n(choice):
     return choice
 
 #function to check if user is happy with output or whether to regenerate options
-def happy_with_choice(picked):
+def happy_with_choice(picked,my_list):
     print("Are you happy with these choices? (yes or no)")
     happy = input()
     happy = check_y_n(happy)
     while happy == "no" or happy == "No":
         print("Here are some alternative choices we have generated for you:")
-        make_choice(picked)
+        make_choice(picked,my_list)
         print("Are you happy with these choices? (yes or no)")
         happy = input()
         happy = check_y_n(happy)
 
 #create function / method to randomly select a value for each key from the dictionary for chosen categories
-def make_choice(all):
+def make_choice(all,my_lists):
     if all == "yes":
         for category, options in my_lists.items():
             choice = random.randint(0,len(options)-1)
@@ -92,65 +92,3 @@ def new_cats():
     
     write_dic(my_lists)
     return my_lists
-    
-#MAIN BODY OF CODE
-print("Would you like to load previously defined categories? (yes/no)")
-load_choice = input().lower().strip()
-load_choice = check_y_n(load_choice)
-
-if load_choice == "yes":
-    try:
-        my_lists = load_dic()
-    except:
-        print("no file to load, please define categories.")
-        my_lists = new_cats()
-else:
-    my_lists = new_cats()
-
-
-#ask if user wants to generate for all or a subset
-print("Would you like to generate options for all categories? (yes/no)")
-all=input().lower().strip()
-all = check_y_n(all)
-
-#generate options for subset of defined categories
-if all == "no":
-    pick_cat = []
-    print("Please choose a category from the below to generate a choice: \n" + str(my_lists.keys()))
-    #need to validate user input
-    picked = input()
-    pick_cat.append(picked)
-   
-    #ask if they want to pick another category
-    print("Do you want to generate options for another category (yes or no)")
-    more_options = input().lower().strip()
-    more_options = check_y_n(more_options)
-    
-    
-    while more_options == "yes":
-        print("Please choose a category from the below to generate a choice: \n" + str(my_lists.keys()))
-        #need to validate user input
-        picked = input()
-        pick_cat.append(picked)
-        print("Do you want to generate options for another category (yes or no)")
-        more_options = input().lower().strip()
-        more_options = check_y_n(more_options)
-
-
-    make_choice(pick_cat)
-    happy_with_choice(pick_cat)
-    
-    
-    #need tocheck if the length of the picked list is less than or equal to the number of unique keys and stop them if they are saying yes to too many
-
-#generate options for all categories
-else:
-    print("Here are the choices we have generated for you:")
-    make_choice(all)
-    happy_with_choice(all)
-
-
-
-print("Enjoy!")
-
-#print(my_lists)
