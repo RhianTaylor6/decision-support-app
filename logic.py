@@ -41,9 +41,9 @@ def make_choice(all):
                     print(category +" : "+options[choice])
 
 def write_dic(dic):
-    json = json.dumps(dic)
+    j = json.dumps(dic)
     f = open("categories.json","w")
-    f.write(json)
+    f.write(j)
     f.close()
 
 def load_dic():
@@ -87,8 +87,9 @@ def new_cats():
 
         #write key:value pairs into the my_lists dictionary
         my_lists[cat_key] = options_list
-        write_dic(my_lists)
-        return my_lists
+    
+    write_dic(my_lists)
+    return my_lists
     
 #MAIN BODY OF CODE
 print("Would you like to load previously defined categories? (yes/no)")
@@ -100,9 +101,9 @@ if load_choice == "yes":
         my_lists = load_dic()
     except:
         print("no file to load, please define categories.")
-        new_cats()
+        my_lists = new_cats()
 else:
-    new_cats()
+    my_lists = new_cats()
 
 
 #ask if user wants to generate for all or a subset
