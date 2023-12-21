@@ -40,19 +40,21 @@ def make_choice(all):
                     choice = random.randint(0,len(options)-1)
                     print(category +" : "+options[choice])
 
+#function to write user defined categories to json file
 def write_dic(dic):
     j = json.dumps(dic)
     f = open("categories.json","w")
     f.write(j)
     f.close()
 
+#function to read previous categories in
 def load_dic():
     f = open("categories.json","r")
     dic = json.load(f)
     return dic
 
 
-
+#function for user to define new categories
 def new_cats():
     # give user facility to input how many decisions they want help with and save as integer
     print("How many decisions do you need to make?")
@@ -93,7 +95,7 @@ def new_cats():
     
 #MAIN BODY OF CODE
 print("Would you like to load previously defined categories? (yes/no)")
-load_choice=input().lower().strip()
+load_choice = input().lower().strip()
 load_choice = check_y_n(all)
 
 if load_choice == "yes":
