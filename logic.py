@@ -96,7 +96,7 @@ def new_cats():
 #MAIN BODY OF CODE
 print("Would you like to load previously defined categories? (yes/no)")
 load_choice = input().lower().strip()
-load_choice = check_y_n(all)
+load_choice = check_y_n(load_choice)
 
 if load_choice == "yes":
     try:
