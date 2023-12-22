@@ -1,6 +1,7 @@
 import random
 import json
 import my_functions
+
     
 #MAIN BODY OF CODE
 print("Would you like to load previously defined categories? (yes/no)")
@@ -29,11 +30,19 @@ if all == "no":
     #need to validate user input
     picked = input()
     pick_cat.append(picked)
-   
+
     #ask if they want to pick another category
-    print("Do you want to generate options for another category (yes or no)")
-    more_options = input().lower().strip()
-    more_options = my_functions.check_y_n(more_options)
+    while len(pick_cat) < len(my_lists.keys()):
+        print("Do you want to generate options for another category (yes or no)")
+        more_options = input().lower().strip()
+        more_options = my_functions.check_y_n(more_options)
+
+        print("Please choose a category from the below to generate a choice: \n" + str(my_lists.keys()))
+        picked = input()
+        pick_cat.append(picked)
+
+        if more_options == "no":
+            break
     
     
     while more_options == "yes":
@@ -57,7 +66,6 @@ else:
     print("Here are the choices we have generated for you:")
     my_functions.make_choice(all,my_lists)
     my_functions.happy_with_choice(all,my_lists)
-
 
 
 print("Enjoy!")

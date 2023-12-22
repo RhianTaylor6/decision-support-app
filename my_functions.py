@@ -7,8 +7,10 @@ import json
 def check_y_n(choice):
     while True:
         if choice == "yes" or choice ==  "y" :
+            choice = "yes"
             break
         elif choice =="no" or choice == "n": 
+            choice = "no"
             break
         else:
             print("Please input Yes/No.")
